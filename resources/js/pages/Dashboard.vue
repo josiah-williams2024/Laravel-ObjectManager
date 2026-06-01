@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import { dashboard } from '@/routes';
-
 </script>
 
 <template>
@@ -11,6 +10,10 @@ import { dashboard } from '@/routes';
         <div class="shawdow-lx rounded-full bg-gray-300 text-xl">
             <Link class="">Create Notes</Link>
         </div>
+        <div class="shawdow-lx rounded-full bg-gray-300 text-xl">
+            <Link class="">View Notes</Link>
+        </div>
+
         <div class="shawdow-lg rounded-full bg-gray-300 text-xl">
             <Link>Update Note</Link>
         </div>
