@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\NoteController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('note', [NoteController::class, 'store'])->name('note.store');
     Route::patch('note/{note}', [NoteController::class, 'update'])->name('note.update');
     Route::delete('/note/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
+});
+
+// 7 restfull actions : index, show, create, store, edit, update, destroy
+// Let's make the routes for the ItemController
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+    Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+    Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
+    Route::post('/items', [ItemController::class, 'store'])->name('item.store');
+    Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
+    Route::patch('/items/{item}', [ItemController::class, 'update'])->name('item.update');
+    Route::delete('/items/{item}',[ItemController::class , 'destroy')->name('item.delete');
 });
 
 require __DIR__.'/settings.php';
