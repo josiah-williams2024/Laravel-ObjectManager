@@ -4,8 +4,13 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\NoteController;
 use Illuminate\Support\Facades\Route;
 
+// This branch is the routes playgourd
+
+// 7 restfull actions : index, show, create, store, edit, update, destroy
+
 Route::inertia('/', 'Welcome')->name('home');
 
+// Note Controller group
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
     Route::get('/note/create', [NoteController::class, 'create'])->name('note.create');
@@ -17,8 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/note/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
 });
 
-// 7 restfull actions : index, show, create, store, edit, update, destroy
-// Let's make the routes for the ItemController
+// Item Controller Group
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/items', [ItemController::class, 'index'])->name('items.index');
     Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
@@ -26,7 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/items', [ItemController::class, 'store'])->name('item.store');
     Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
     Route::patch('/items/{item}', [ItemController::class, 'update'])->name('item.update');
-    Route::delete('/items/{item}',[ItemController::class , 'destroy')->name('item.delete');
+    Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('item.delete');
 });
 
 require __DIR__.'/settings.php';
