@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Note;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class NoteController extends Controller
 {
@@ -20,7 +21,7 @@ class NoteController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('CreateNote');
     }
 
     /**
@@ -44,7 +45,7 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        //
+        return Inertia::render('UpdateNote');
     }
 
     /**
