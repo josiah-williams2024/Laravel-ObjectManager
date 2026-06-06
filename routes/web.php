@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\SportsController;
 use Illuminate\Support\Facades\Route;
 
-// This branch is the routes playgourd
+// This branch is the route playground
 
-// 7 restfull actions : index, show, create, store, edit, update, destroy
+// 7 restfull actions: index, show, create, store, edit, update, destroy
 
 Route::inertia('/', 'Welcome')->name('home');
 
@@ -31,6 +32,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
     Route::patch('/items/{item}', [ItemController::class, 'update'])->name('item.update');
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('item.delete');
+});
+
+// Sport Controller group (index,show,create,store,edit,update,destroy)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/sports', [SportsController::class, 'index'])->name('sports.index');
+    Route::get('/sports/{sport}', [SportsController::class, 'show'])->name('sports.show');
+    Route::get('/sports/create', [SportsController::class, 'create'])->name('sports.create');
+    Route::post('/sports', [SportsController::class, 'store'])->name('sports.store');
+    Route::get('/sports/{sports}/edit', [SportsController::class, 'edit'])->name('sports.edit');
+    Route::patch('/sports', [SportsController::class, 'update'])->name('sports.update');
+    Route::delete('/sports/{sport}', [SportsController::class, 'destroy'])->name('sports.destroy');
 });
 
 require __DIR__.'/settings.php';
