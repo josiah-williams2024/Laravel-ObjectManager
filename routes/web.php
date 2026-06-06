@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Games;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\SportsController;
@@ -34,7 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('item.delete');
 });
 
-// Sport Controller group (index,show,create,store,edit,update,destroy)
+// Sport Controller Group
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/sports', [SportsController::class, 'index'])->name('sports.index');
     Route::get('/sports/{sport}', [SportsController::class, 'show'])->name('sports.show');
@@ -44,5 +45,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/sports', [SportsController::class, 'update'])->name('sports.update');
     Route::delete('/sports/{sport}', [SportsController::class, 'destroy'])->name('sports.destroy');
 });
+
+// Game Controller Group
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/game', [Games::class, 'index'])->name('games.index');
+    Route::get('/game/{game}', [Games::class, 'show'])->name('games.show');
+    Route::get('/game/create', [Games::class, 'create'])->name('game.create');
+    Route::post('/game', [Games::class, 'store'])->name('game.store');
+    Route::get('/game/{game}/edit', [Games::class, 'edit'])->name('game.edit');
+    Route::patch('/game', [Games::class, 'update'])->name('games.update');
+    Route::delete('/game', [Games::class, 'destroy'])->name('games.destroy');
+});
+
+// Car Route Group
 
 require __DIR__.'/settings.php';
