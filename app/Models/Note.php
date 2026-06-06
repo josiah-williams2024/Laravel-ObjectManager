@@ -12,4 +12,6 @@ class Note extends Model
         'title' => 'string',
         'content' => 'string',
     ];
+
+
 }
