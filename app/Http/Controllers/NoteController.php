@@ -11,9 +11,18 @@ class NoteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $userID = $request->user()->id;
+
+        $notes = Note::query()
+            ->where('user_id', $userID)
+            ->get();
+
+        return Inertia::render('Dashboard', [
+            'notes' => $notes,
+        ]);
     }
 
     /**
@@ -29,7 +38,19 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        $userID = $request->user()->id;
+        Note::query()->create([
+            'user_id' => $userID,
+            'title' => $validated['title'],
+            'body' => $validated['body'],
+        ]);
+
+        return redirect()->route('note.index');
     }
 
     /**
@@ -37,7 +58,9 @@ class NoteController extends Controller
      */
     public function show(Note $note)
     {
-        //
+        return Inertia::render('ViewNote', [
+            'note' => $note,
+        ]);
     }
 
     /**
@@ -45,7 +68,9 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        return Inertia::render('UpdateNote');
+        return Inertia::render('UpdateNote', [
+            'note' => $note,
+        ]);
     }
 
     /**
@@ -53,7 +78,14 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        $note->update($validated);
+
+        return redirect()->route('note.index');
     }
 
     /**
@@ -61,6 +93,8 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        //
+        $note->delete();
+
+        return redirect()->route('note.index');
     }
 }
