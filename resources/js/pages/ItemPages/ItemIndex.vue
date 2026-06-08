@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
-<template></template>
+<template>You have arrived at index page</template>
 
 <style scoped></style>
