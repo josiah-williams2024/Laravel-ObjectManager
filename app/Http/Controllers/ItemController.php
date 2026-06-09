@@ -19,7 +19,7 @@ class ItemController extends Controller
             ->where('user_id', $userID)
             ->get(); // Do not forget to use (get()) get the collection of items
 
-        return Inertia::render('ItemPages/ItemIndex', [
+        return Inertia::render('Item/ItemIndex', [
             'items' => $items,
         ]);
     }
@@ -29,7 +29,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return Inertia::render('ItemPages/CreateItem');
+        return Inertia::render('Item/CreateItem');
     }
 
     /**
@@ -61,7 +61,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return Inertia::render('ItemPages/ViewItem', [
+        return Inertia::render('Item/ViewItem', [
             'item' => $item,
         ]);
     }
@@ -71,7 +71,7 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        return Inertia::render('ItemPages/UpdateItem', [
+        return Inertia::render('Item/UpdateItem', [
             'items' => $item,
         ]);
     }
