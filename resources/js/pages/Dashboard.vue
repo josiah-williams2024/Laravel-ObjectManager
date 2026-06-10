@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
-import * as NoteController from '@/actions/App/Http/Controllers/NoteController';
-import * as ItemController from '@/actions/App/Http/Controllers/ItemController';
-import * as GameController from '@/actions/App/Http/Controllers/GameController';
-import * as SportsController from '@/actions/App/Http/Controllers/SportsController';
 import * as CarController from '@/actions/App/Http/Controllers/CarController';
+import * as GameController from '@/actions/App/Http/Controllers/GameController';
+import * as ItemController from '@/actions/App/Http/Controllers/ItemController';
+import * as NoteController from '@/actions/App/Http/Controllers/NoteController';
+import * as SportsController from '@/actions/App/Http/Controllers/SportsController';
+
 </script>
 
 <template>
