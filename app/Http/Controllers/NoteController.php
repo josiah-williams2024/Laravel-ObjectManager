@@ -20,7 +20,7 @@ class NoteController extends Controller
             ->where('user_id', $userID)
             ->get();
 
-        return Inertia::render('Dashboard', [
+        return Inertia::render('Note/Index', [
             'notes' => $notes,
         ]);
     }
@@ -30,7 +30,7 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return Inertia::render('CreateNote');
+        return Inertia::render('Note/CreateNote');
     }
 
     /**
@@ -58,7 +58,7 @@ class NoteController extends Controller
      */
     public function show(Note $note)
     {
-        return Inertia::render('ViewNote', [
+        return Inertia::render('Note/ViewNote', [
             'note' => $note,
         ]);
     }
@@ -68,7 +68,7 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        return Inertia::render('UpdateNote', [
+        return Inertia::render('Note/UpdateNote', [
             'note' => $note,
         ]);
     }
