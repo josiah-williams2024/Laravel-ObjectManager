@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-    protected $fillable = ['body', 'user_id'];
+    protected $fillable = ['title', 'body', 'user_id'];
 
     protected $casts = [
-        'body' => 'string',
+        'title' => 'string',
+        'content' => 'string',
     ];
 
 

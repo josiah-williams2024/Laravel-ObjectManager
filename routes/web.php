@@ -1,18 +1,73 @@
 <?php
 
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\SportsController;
 use Illuminate\Support\Facades\Route;
+
+// This branch is the route playground
+
+// 7 restfull actions: index, show, create, store, edit, update, destroy
 
 Route::inertia('/', 'Welcome')->name('home');
 
+// Note Controller group
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
-    Route::get('dashboar/notes', [NoteController::class, 'index'])->name('notes.index');
-    Route::get('dashboar/notes/create', [NoteController::class, 'create'])->name('notes.create');
-    Route::post('dashboar/notes', [NoteController::class, 'store'])->name('notes.store');
-    Route::get('dashboard/{note}/edit', [NoteController::class, 'edit'])->name('notes.edit');
-    Route::put('dashboard/{note}', [NoteController::class, 'update'])->name('notes.update');
-    Route::delete('dashboard/{note}', [NoteController::class, 'destroy'])->name('notes.destroy');
+    Route::get('/note/create', [NoteController::class, 'create'])->name('note.create');
+    Route::get('note/{edit}/edit', [NoteController::class, 'edit'])->name('note.edit');
+    Route::get('note', [NoteController::class, 'index'])->name('note.index');
+    Route::get('note/{note}', [NoteController::class, 'show'])->name('note.show');
+    Route::post('note', [NoteController::class, 'store'])->name('note.store');
+    Route::patch('note/{note}', [NoteController::class, 'update'])->name('note.update');
+    Route::delete('/note/{note}', [NoteController::class, 'destroy'])->name('note.destroy');
+});
+
+// Item Controller Group
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+    Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+    Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
+    Route::post('/items', [ItemController::class, 'store'])->name('item.store');
+    Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
+    Route::patch('/items/{item}', [ItemController::class, 'update'])->name('item.update');
+    Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('item.delete');
+});
+
+// Sport Controller Group
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/sports', [SportsController::class, 'index'])->name('sports.index');
+    Route::get('/sports/{sport}', [SportsController::class, 'show'])->name('sports.show');
+    Route::get('/sports/create', [SportsController::class, 'create'])->name('sports.create');
+    Route::post('/sports', [SportsController::class, 'store'])->name('sports.store');
+    Route::get('/sports/{sports}/edit', [SportsController::class, 'edit'])->name('sports.edit');
+    Route::patch('/sports/{sport}', [SportsController::class, 'update'])->name('sports.update');
+    Route::delete('/sports/{sport}', [SportsController::class, 'destroy'])->name('sports.destroy');
+});
+
+// Game Controller Group
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/game', [GameController::class, 'index'])->name('games.index');
+    Route::get('/game/{game}', [GameController::class, 'show'])->name('games.show');
+    Route::get('/game/create', [GameController::class, 'create'])->name('game.create');
+    Route::post('/game', [GameController::class, 'store'])->name('game.store');
+    Route::get('/game/{game}/edit', [GameController::class, 'edit'])->name('game.edit');
+    Route::patch('/game/{game}', [GameController::class, 'update'])->name('games.update');
+    Route::delete('/game/{game}', [GameController::class, 'destroy'])->name('games.destroy');
+});
+
+// CarController Route Group
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::get('/car', [CarController::class, 'index'])->name('car.index');
+    Route::get('/car/{car}', [CarController::class, 'show'])->name('car.show');
+    Route::get('/car/create', [CarController::class, 'create'])->name('car.create');
+    Route::post('/car', [CarController::class, 'store'])->name('car.store');
+    Route::get('/car/{car}/edit', [CarController::class, 'edit'])->name('car.edit');
+    Route::patch('/car/{car}', [CarController::class, 'update'])->name('car.update');
+    Route::delete('/car/{car}', [CarController::class, 'destroy'])->name('car.destroy');
 });
 
 require __DIR__.'/settings.php';

@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Note;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $notes = Note::all();
 
-        return inertia('ViewNotes', [
+        $userID = $request->user()->id;
+
+        $notes = Note::query()
+            ->where('user_id', $userID)
+            ->get();
+
+        return Inertia::render('Dashboard', [
             'notes' => $notes,
         ]);
     }
@@ -24,7 +30,7 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return inertia('CreateNotes', []);
+        return Inertia::render('CreateNote');
     }
 
     /**
@@ -32,14 +38,19 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['body' => 'required']);
-
-        Note::query()->create([
-            'body' => $request->input('body'),
-            'user_id' => $request->user()->id,
+        $validated = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
         ]);
 
-        return redirect()->route('notes.index');
+        $userID = $request->user()->id;
+        Note::query()->create([
+            'user_id' => $userID,
+            'title' => $validated['title'],
+            'body' => $validated['body'],
+        ]);
+
+        return redirect()->route('note.index');
     }
 
     /**
@@ -47,7 +58,9 @@ class NoteController extends Controller
      */
     public function show(Note $note)
     {
-        //
+        return Inertia::render('ViewNote', [
+            'note' => $note,
+        ]);
     }
 
     /**
@@ -55,7 +68,7 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        return inertia('UpdateNotes', [
+        return Inertia::render('UpdateNote', [
             'note' => $note,
         ]);
     }
@@ -65,12 +78,14 @@ class NoteController extends Controller
      */
     public function update(Request $request, Note $note)
     {
-        $request->validate(['body' => 'required']);
-        $note->update([
-            'body' => $request->input('body'),
+        $validated = $request->validate([
+            'title' => 'required',
+            'body' => 'required',
         ]);
 
-        return redirect()->route('notes.index');
+        $note->update($validated);
+
+        return redirect()->route('note.index');
     }
 
     /**
@@ -80,6 +95,6 @@ class NoteController extends Controller
     {
         $note->delete();
 
-        return redirect()->route('notes.index');
+        return redirect()->route('note.index');
     }
 }
