@@ -1,5 +1,7 @@
 <script setup lang="ts"></script>
 
-<template></template>
+<template>
+    You are at the create car page
+</template>
 
 <style scoped></style>
