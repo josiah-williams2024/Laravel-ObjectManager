@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
 import * as NoteController from '@/actions/App/Http/Controllers/NoteController';
+import type { Note } from '@/types/notes.ts';
 
-defineProps({
-    notes: Array,
-});
+const props = defineProps<{
+    notes: Array<Note>,
+}>();
+
 </script>
 
 <template>
@@ -22,30 +24,31 @@ defineProps({
             </Link>
         </section>
 
-        <section class="mx-auto grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <div v-if="notes?.length > 0">
+        <section
+            class="mx-auto grid max-w-6xl gap-4 md:grid-cols-2 lg:grid-cols-3"
+        >
+            <div v-if="props.notes?.length > 0">
                 <article
-                    v-for="note in notes"
+                    v-for="note in props.notes"
                     :key="note.id"
                     class="rounded-lg border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md"
                 >
-                        <Link
-                            class="block p-5"
-                            :href="NoteController.show(note.id)"
-                        >
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h2 class="text-lg font-semibold">
-                                {{ note.title }}
-                            </h2>
+                    <Link
+                        class="block p-5"
+                        :href="NoteController.show(note.id)"
+                    >
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h2 class="text-lg font-semibold">
+                                    {{ note.title }}
+                                </h2>
 
-                            <p class="mt-2 line-clamp-3 text-gray-600">
-                                {{ note.body }}
-                            </p>
+                                <p class="mt-2 line-clamp-3 text-gray-600">
+                                    {{ note.body }}
+                                </p>
+                            </div>
                         </div>
-
-                    </div>
-                        </Link>
+                    </Link>
                 </article>
             </div>
 
